@@ -12,12 +12,12 @@ Ejercitar la escritura de código en ambientes colaborativos utilizando una meto
 
 ### Integrantes
 
-Nro | Nombre | Legajo | Mail
-----|--------|--------|------
-1   |        |        |
-2   |        |        |
-3   |        |        |
-4   |        |        |
+Nro | Nombre    | Legajo | Mail
+----|--------   |--------|------
+1   |Belen Amat | 33077  | belen.amat29@gmail.com
+2   |           |        |
+3   |           |        |
+4   |           |        |
     
 ### Entrega
 
