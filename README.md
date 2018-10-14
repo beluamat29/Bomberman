@@ -15,7 +15,7 @@ Ejercitar la escritura de código en ambientes colaborativos utilizando una meto
 Nro | Nombre    | Legajo | Mail
 ----|--------   |--------|------
 1   |Belen Amat | 33077  | belen.amat29@gmail.com
-2   |Guido Montorfano| 353354 |guidomontorfano78@gmail.com
+2   |Guido Montorfano| 35354 |guidomontorfano78@gmail.com
 3   |Luciana Alonso| 31573 |luliialonso@hotmail.com
 4   |Micaela Alonso| 30890 |alonso.mica@hotmail.com
     
