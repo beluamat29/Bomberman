@@ -20,6 +20,11 @@ public class MoverStepdefs {
         bom.moverHacia(unaDireccion);
     }
 
+    @When("^Le paso la direccion \"([^\"]*)\" y en la celda hay una pared")
+    public void bombermanSeQuiereMoverACeldaConPared(String unaDireccion){
+        bom.moverHacia(unaDireccion);
+    }
+
     @Then("^Su ubicacion actual es \"([^\"]*)\"")
      public void verificacionDeUbicacion(String unaCelda){
         Object ubicacionActual = bom.getUbicacion();
