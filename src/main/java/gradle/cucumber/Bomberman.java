@@ -1,15 +1,20 @@
 package gradle.cucumber;
 
 public class Bomberman {
-    public Bomberman(String unaCelda) {
 
+    private Celda ubicacionActual;
+
+    public Bomberman(Celda unaCelda) {
+        ubicacionActual = unaCelda;
     }
 
-    public void moverHacia(String unaDireccion) {
-
+    public void moverHacia(Celda unaCelda) {
+        if(unaCelda.estaVacia()){
+            ubicacionActual = unaCelda;
+        }
     }
 
-    public Object getUbicacion() {
-        return "a2";
+    public Celda getUbicacion() {
+        return ubicacionActual;
     }
 }
