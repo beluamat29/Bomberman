@@ -5,11 +5,13 @@ public class Celda {
     private final Integer x;
     private final Integer y;
     private boolean conPared;
+    private boolean conEnemigo;
 
-    public Celda(Integer unEjeX, Integer unEjeY, Boolean tienePared) {
+    public Celda(Integer unEjeX, Integer unEjeY, Boolean tienePared, Boolean tieneEnemigo) {
         x = unEjeX;
         y = unEjeY;
         conPared = tienePared;
+        conEnemigo = tieneEnemigo;
     }
 
     public boolean estaVacia() {
@@ -22,5 +24,9 @@ public class Celda {
 
     public Integer getY() {
         return y;
+    }
+
+    public boolean tieneEnemigo() {
+        return conEnemigo;
     }
 }
