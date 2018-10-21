@@ -47,24 +47,41 @@ public class Bomberman {
         int indiceCelda = 0;
         for (int i = 1; i <= radioDeCasilleros; ++i){
 
-            if(celdasTablero.get(indiceCelda).getX() == (celdaActualX + 1) && celdasTablero.get(indiceCelda).getY() == (celdaActualY)){
-                
+            //Verifico el radio de celdas hacia la derecha
+            if(celdasTablero.get(indiceCelda).getX() == (celdaActualX + i) && celdasTablero.get(indiceCelda).getY() == (celdaActualY)){
+
+                if(!celdasTablero.get(indiceCelda).estaVacia()){
+                    celdasTablero.get(indiceCelda).destruirPared();
+                }
+            }
+
+            //Verifico el radio de celdas hacia la izquierda
+            if(celdasTablero.get(indiceCelda).getX() == (celdaActualX - i) && celdasTablero.get(indiceCelda).getY() == (celdaActualY)){
+
+                if(!celdasTablero.get(indiceCelda).estaVacia()){
+                    celdasTablero.get(indiceCelda).destruirPared();
+                }
+            }
+
+            //Verifico el radio de celdas hacia arriba
+            if(celdasTablero.get(indiceCelda).getX() == (celdaActualX ) && celdasTablero.get(indiceCelda).getY() == (celdaActualY + 1)){
+
+                if(!celdasTablero.get(indiceCelda).estaVacia()){
+                    celdasTablero.get(indiceCelda).destruirPared();
+                }
+            }
+
+            //Verifico el radio de celdas hacia abajo
+            if(celdasTablero.get(indiceCelda).getX() == (celdaActualX ) && celdasTablero.get(indiceCelda).getY() == (celdaActualY - 1)){
+
                 if(!celdasTablero.get(indiceCelda).estaVacia()){
                     celdasTablero.get(indiceCelda).destruirPared();
                 }
 
-                indiceCelda = indiceCelda + 1;
             }
-
+            indiceCelda = indiceCelda + 1;
         }
 
-    }
-
-    public Celda obtenerCeldaDeEjeXDeLaPosicion(Celda celda, int i){
-        int celdaX = celda.getX() + i;
-        int celdaY = celda.getY();
-
-        return (new Celda(celdaX, celdaY,true,false));
     }
 
     public Tablero getTablero() {
