@@ -30,4 +30,22 @@ public class Bomberman {
     public boolean estaMuerto() {
         return muerto;
     }
+
+    public void soltarBombaAUnRadioDeCasilleros(int radioDeCasilleros){
+
+        Celda celdaActual = this.getUbicacion();
+        int celdaX = celdaActual.getX();
+        int celdaY = celdaActual.getY();
+
+        for (int i = 0; i < radioDeCasilleros; i++){
+
+            if()
+
+        }
+
+
+
+
+
+    }
 }
