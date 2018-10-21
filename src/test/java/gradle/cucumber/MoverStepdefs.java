@@ -78,6 +78,6 @@ public class MoverStepdefs {
 
     @When("^Bomberman lanza bomba$")
     public void bombermanLanzaBomba() throws Throwable {
-        bom.soltarBombaAUnRadioDeCasilleros(3, tablero);
+        bom.soltarBombaAUnRadioDeCasilleros(2, tablero);
     }
 }

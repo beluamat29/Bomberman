@@ -35,7 +35,7 @@ public class Celda {
         return conEnemigo;
     }
 
-    public void destruirPared(){
+    public void destruirPared() {
         this.conPared = false;
     }
 

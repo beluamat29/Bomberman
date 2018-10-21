@@ -45,15 +45,17 @@ public class Bomberman {
         ArrayList<Celda> celdasTablero = tablero.getCeldas();
 
         int indiceCelda = 0;
-        for (int i = 1; i <= 3; ++i){
+        for (int i = 1; i <= radioDeCasilleros; ++i){
+
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX + 1) && celdasTablero.get(indiceCelda).getY() == (celdaActualY)){
-
-                indiceCelda = indiceCelda + 1;
-
+                
                 if(!celdasTablero.get(indiceCelda).estaVacia()){
                     celdasTablero.get(indiceCelda).destruirPared();
                 }
+
+                indiceCelda = indiceCelda + 1;
             }
+
         }
 
     }

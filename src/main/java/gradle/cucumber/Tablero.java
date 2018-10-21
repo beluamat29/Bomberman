@@ -40,7 +40,7 @@ public class Tablero {
         while (noEncontrado){
             if (this.getCeldas().get(i).getX() == ejeX && this.getCeldas().get(i).getY() == ejeY){
                 noEncontrado = false;
-                if(!this.getCeldas().get(i).estaVacia()){
+                if(this.getCeldas().get(i).estaVacia()){
                     return true;
                 }
 
