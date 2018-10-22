@@ -14,6 +14,11 @@ public class Celda {
         conEnemigo = tieneEnemigo;
     }
 
+    public Celda(Integer unEjeX, Integer unEjeY) {
+        x = unEjeX;
+        y = unEjeY;
+    }
+
     public boolean estaVacia() {
         return !conPared;
     }
@@ -29,4 +34,10 @@ public class Celda {
     public boolean tieneEnemigo() {
         return conEnemigo;
     }
+
+    public void destruirPared() {
+        this.conPared = false;
+    }
+
 }
+
