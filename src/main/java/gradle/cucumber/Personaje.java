@@ -14,7 +14,7 @@ public abstract class Personaje {
     }
 
     public void moverHacia(Celda unaCelda) {
-        if(unaCelda.estaVacia()){
+        if(unaCelda.noTienePared()){
             ubicacionActual = unaCelda;
         }
         if(unaCelda.tieneEnemigo()){
@@ -49,15 +49,17 @@ public abstract class Personaje {
             //Verifico el radio de celdas hacia la derecha
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX + i) && celdasTablero.get(indiceCelda).getY() == (celdaActualY)){
 
-                if(!celdasTablero.get(indiceCelda).estaVacia()){
+                if(!celdasTablero.get(indiceCelda).noTienePared()){
                     celdasTablero.get(indiceCelda).destruirPared();
+                }else if(celdasTablero.get(indiceCelda).tieneEnemigo()){
+                    celdasTablero.get(indiceCelda).destruirEnemigo();
                 }
             }
 
             //Verifico el radio de celdas hacia la izquierda
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX - i) && celdasTablero.get(indiceCelda).getY() == (celdaActualY)){
 
-                if(!celdasTablero.get(indiceCelda).estaVacia()){
+                if(!celdasTablero.get(indiceCelda).noTienePared()){
                     celdasTablero.get(indiceCelda).destruirPared();
                 }
             }
@@ -65,7 +67,7 @@ public abstract class Personaje {
             //Verifico el radio de celdas hacia arriba
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX ) && celdasTablero.get(indiceCelda).getY() == (celdaActualY + 1)){
 
-                if(!celdasTablero.get(indiceCelda).estaVacia()){
+                if(!celdasTablero.get(indiceCelda).noTienePared()){
                     celdasTablero.get(indiceCelda).destruirPared();
                 }
             }
@@ -73,7 +75,7 @@ public abstract class Personaje {
             //Verifico el radio de celdas hacia abajo
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX ) && celdasTablero.get(indiceCelda).getY() == (celdaActualY - 1)){
 
-                if(!celdasTablero.get(indiceCelda).estaVacia()){
+                if(!celdasTablero.get(indiceCelda).noTienePared()){
                     celdasTablero.get(indiceCelda).destruirPared();
                 }
 

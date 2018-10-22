@@ -13,29 +13,33 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MoverStepdefs {
     private Bomberman bom;
     private Tablero tablero;
+    private Enemigo enemigo;
+    private Pared pared;
 
     @Given("^Un Bomberman en la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void newBomberman(String unEjeX, String unEjeY)throws Throwable {
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), false, false);
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         bom = new Bomberman(celda);
         tablero = new Tablero();
     }
 
     @When("^Le paso la celda vacia \"([^\"]*)\" \"([^\"]*)\"")
     public void bombermanSeMueveHacia(String unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), false, false);
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         bom.moverHacia(celda);
     }
 
     @When("^Le paso la celda con pared \"([^\"]*)\" \"([^\"]*)\"")
     public void bombermanSeQuiereMoverACeldaConPared(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), true, false);
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        pared = new Pared("Melamina", celda);
         bom.moverHacia(celda);
     }
 
     @When("Le paso una celda con un enemigo \"([^\"]*)\" \"([^\"]*)\"")
     public void bombermanSeQuiereMoverACeldaConEnemigo(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), false, true);
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        enemigo = new Enemigo(celda);
         bom.moverHacia(celda);
     }
 
@@ -53,7 +57,7 @@ public class MoverStepdefs {
 
     private void verificarUbicacion(String unEjeX, String unEjeY) {
         Celda ubicacionActual = bom.getUbicacion();
-        Celda ubicacionEsperada = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), false, false);
+        Celda ubicacionEsperada = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
 
         assertThat(ubicacionActual.getX()).isEqualTo(ubicacionEsperada.getX());
         assertThat(ubicacionActual.getY()).isEqualTo(ubicacionEsperada.getY());

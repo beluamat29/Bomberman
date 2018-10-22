@@ -7,19 +7,14 @@ public class Celda {
     private boolean conPared;
     private boolean conEnemigo;
 
-    public Celda(Integer unEjeX, Integer unEjeY, Boolean tienePared, Boolean tieneEnemigo) {
-        x = unEjeX;
-        y = unEjeY;
-        conPared = tienePared;
-        conEnemigo = tieneEnemigo;
-    }
-
     public Celda(Integer unEjeX, Integer unEjeY) {
         x = unEjeX;
         y = unEjeY;
+        conPared = false;
+        conEnemigo = false;
     }
 
-    public boolean estaVacia() {
+    public boolean noTienePared() {
         return !conPared;
     }
 
@@ -33,6 +28,18 @@ public class Celda {
 
     public boolean tieneEnemigo() {
         return conEnemigo;
+    }
+
+    public void setTieneEnemigo(Boolean tieneEnemigo){
+        this.conEnemigo = tieneEnemigo;
+    }
+
+    public void setConPared(Boolean conPared){
+        this.conPared = conPared;
+    }
+
+    public void destruirEnemigo(){
+        this.conEnemigo = false;
     }
 
     public void destruirPared() {

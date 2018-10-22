@@ -1,7 +1,5 @@
 package gradle.cucumber;
 
-import java.util.ArrayList;
-
 public class Bomberman extends Personaje{
 
 
@@ -9,8 +7,6 @@ public class Bomberman extends Personaje{
         super(ubicacionActual);
 
     }
-
-
 
 
 }
