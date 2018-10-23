@@ -72,3 +72,38 @@ Feature: Lanzar Bomba
     Then Se destruyo la pared de la celda "0" "0"
 
 
+  Scenario: Bomberman salta paredes hacia la direccion derecha
+    Given Un Bomberman ubicado en la celda "0" "0"
+    When Le agrego al tablero la celda con enemigo Proto Max Units "0" "1"
+    And Bomberman lanza bomba a un radio de "1"
+    When Le agrego al tablero la celda con pared melamina "1" "0"
+    When Le agrego al tablero la celda vacia "2" "0"
+    Then Se mueve hacia la direccion "derecha" salta la pared y su ubicacion actual es "2" "0"
+
+  Scenario: Bomberman salta paredes hacia la direccion izquierda
+    Given Un Bomberman ubicado en la celda "3" "0"
+    When Le agrego al tablero la celda con enemigo Proto Max Units "3" "1"
+    And Bomberman lanza bomba a un radio de "1"
+    When Le agrego al tablero la celda con pared melamina "1" "0"
+    When Le agrego al tablero la celda con pared melamina "2" "0"
+    When Le agrego al tablero la celda vacia "0" "0"
+    Then Se mueve hacia la direccion "izquierda" salta la pared y su ubicacion actual es "0" "0"
+
+  Scenario: Bomberman salta paredes hacia la direccion abajo
+    Given Un Bomberman ubicado en la celda "0" "3"
+    When Le agrego al tablero la celda con enemigo Proto Max Units "0" "4"
+    And Bomberman lanza bomba a un radio de "1"
+    When Le agrego al tablero la celda con pared melamina "0" "2"
+    When Le agrego al tablero la celda con pared melamina "0" "1"
+    When Le agrego al tablero la celda vacia "0" "0"
+    Then Se mueve hacia la direccion "abajo" salta la pared y su ubicacion actual es "0" "0"
+
+  Scenario: Bomberman salta paredes hacia la direccion arriba
+    Given Un Bomberman ubicado en la celda "0" "0"
+    When Le agrego al tablero la celda con enemigo Proto Max Units "1" "0"
+    And Bomberman lanza bomba a un radio de "1"
+    When Le agrego al tablero la celda con pared melamina "0" "1"
+    When Le agrego al tablero la celda con pared melamina "0" "2"
+    When Le agrego al tablero la celda vacia "0" "3"
+    Then Se mueve hacia la direccion "arriba" salta la pared y su ubicacion actual es "0" "3"
+

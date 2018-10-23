@@ -7,12 +7,14 @@ public class Bomberman extends Personaje {
     private boolean tienePoderDeSalto;
     private boolean tienePoderDeLanzarBombasNCasilleros;
     private boolean tienePoderDeSaltarOLanzarVariasBombas;
+    private boolean tienePoderDeSaltoNVeces;
 
     public Bomberman(Celda ubicacionActual) {
         super(ubicacionActual);
         tienePoderDeSalto = false;
         tienePoderDeLanzarBombasNCasilleros = false;
         tienePoderDeSaltarOLanzarVariasBombas = false;
+        tienePoderDeSaltoNVeces = false;
     }
 
     public void moverHacia(Celda unaCelda) {
@@ -32,13 +34,7 @@ public class Bomberman extends Personaje {
 
         celdasTablero.forEach(celda -> {
             if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros)) {
-                if (celda.tienePared() && celda.tieneParedDeMelamina()) {
-                    celda.destruirPared();
-                }
-
-                if (celda.tieneEnemigo()) {
-                    celda.destruirEnemigo(this);
-                }
+                verificacionYEliminacionDeEnemigosYObstaculos(celda);
             }
         });
     }
@@ -48,7 +44,8 @@ public class Bomberman extends Personaje {
     }
 
     public void obtenerPoderDeSaltarOLanzarVariasBombas(){
-        tienePoderDeSaltarOLanzarVariasBombas = true;
+        tienePoderDeSaltoNVeces = true;
+        tienePoderDeLanzarBombasNCasilleros = true;
     }
 
     public void obtenerPoderDeSalto() {
@@ -64,15 +61,15 @@ public class Bomberman extends Personaje {
                     verificacionYEliminacionDeEnemigosYObstaculos(celda);
                 }
                 if (direccion.equalsIgnoreCase("izquierda") &&
-                        celda.estaHaciaLaDerecha(ubicacionActual.getX(), nCasilleros)) {
+                        celda.estaHaciaLaIzquierda(ubicacionActual.getX(), nCasilleros)) {
                     verificacionYEliminacionDeEnemigosYObstaculos(celda);
                 }
                 if (direccion.equalsIgnoreCase("arriba") &&
-                        celda.estaHaciaLaDerecha(ubicacionActual.getY(), nCasilleros)) {
+                        celda.estaHaciaArriba(ubicacionActual.getY(), nCasilleros)) {
                     verificacionYEliminacionDeEnemigosYObstaculos(celda);
                 }
                 if (direccion.equalsIgnoreCase("abajo") &&
-                        celda.estaHaciaLaDerecha(ubicacionActual.getY(), nCasilleros)) {
+                        celda.estaHaciaAbajo(ubicacionActual.getY(), nCasilleros)) {
                     verificacionYEliminacionDeEnemigosYObstaculos(celda);
                 }
             });
@@ -93,7 +90,30 @@ public class Bomberman extends Personaje {
 
     }
 
-    public void saltarOLanzarVariasBombas(){
+    public void saltarParedesHaciaUnaDireccion(String direccion, Tablero tablero){
+        ArrayList<Celda> celdasTablero = tablero.getCeldas();
+        if(tienePoderDeSaltoNVeces){
+            int radio = 1;
+            for (Celda celda : celdasTablero){
+                if (direccion.equalsIgnoreCase("derecha") &&
+                        celda.estaHaciaLaDerecha(ubicacionActual.getX(), radio) && !celda.tienePared() ) {
+                    moverHacia(celda);
+                }
+                if (direccion.equalsIgnoreCase("izquierda") &&
+                        celda.estaHaciaLaIzquierda(ubicacionActual.getX(), radio) && !celda.tienePared() ) {
+                    moverHacia(celda);
+                }
+                if (direccion.equalsIgnoreCase("arriba") &&
+                        celda.estaHaciaArriba(ubicacionActual.getY(), radio) && !celda.tienePared() ) {
+                    moverHacia(celda);
+                }
+                if (direccion.equalsIgnoreCase("abajo") &&
+                        celda.estaHaciaAbajo(ubicacionActual.getY(), radio) && !celda.tienePared() ) {
+                    moverHacia(celda);
+                }
+                radio = radio + 1;
+            }
+        }
 
     }
 

@@ -114,4 +114,24 @@ public class LanzarBombaStepdefs {
         new EnemigoBagulaa(celda);
         tablero.agregarCelda(celda);
     }
+
+    @Then("^Se mueve hacia la direccion \"([^\"]*)\" salta la pared y su ubicacion actual es \"([^\"]*)\" \"([^\"]*)\"$")
+    public void seMueveHaciaLaDireccionSaltaLaParedYSuUbicacionActualEs(String direccion, String x, String y) throws Throwable {
+        bom.saltarParedesHaciaUnaDireccion(direccion, tablero);
+        verificarUbicacion(x, y);
+
+    }
+
+    @When("^Le agrego al tablero la celda con enemigo Proto Max Units \"([^\"]*)\" \"([^\"]*)\"$")
+    public void leAgregoAlTableroLaCeldaConEnemigoProtoMaxUnits(String x, String y) throws Throwable {
+        Celda celda = new Celda(Integer.valueOf(x), Integer.valueOf(y));
+        new EnemigoProtoMaxUnits(celda);
+        tablero.agregarCelda(celda);
+    }
+
+    @And("^Bomberman lanza bomba a un radio de \"([^\"]*)\"$")
+    public void bombermanLanzaBombaAUnRadioDe(String radio) throws Throwable {
+        bom.soltarBombaAUnRadioDeCasilleros(Integer.valueOf(radio), tablero);
+
+    }
 }

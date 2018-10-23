@@ -61,4 +61,5 @@ public class MoverStepdefs {
         assertThat(ubicacionActual.getX()).isEqualTo(ubicacionEsperada.getX());
         assertThat(ubicacionActual.getY()).isEqualTo(ubicacionEsperada.getY());
     }
+
 }
