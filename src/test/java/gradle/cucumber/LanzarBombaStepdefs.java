@@ -4,6 +4,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -34,6 +35,13 @@ public class LanzarBombaStepdefs {
     public void seAgregaCeldaConEnemigoAlTablero(String  unEjeX,  String unEjeY){
         Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         new Enemigo(celda);
+        tablero.agregarCelda(celda);
+    }
+
+    @When("^Le agrego al tablero la celda con enemigo Proto Max Jr \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaConEnemigoProtoMaxJrAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        new EnemigoProtoMaxJr(celda);
         tablero.agregarCelda(celda);
     }
 
@@ -73,7 +81,23 @@ public class LanzarBombaStepdefs {
         assertTrue(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tieneEnemigo());
     }
 
+    @Then("^Bomberman obtiene poder, se quiere mover a \"([^\"]*)\" \"([^\"]*)\" pero salta paredes moviendose a celda \"([^\"]*)\" \"([^\"]*)\"")
+    public void verificacionDeObtencionDePoderDeSaltarParedes(String unEjeX, String unEjeY, String unEjeXFinal, String unEjeYFinal){
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        bom.moverHacia(celda);
+
+        verificarUbicacion(unEjeXFinal, unEjeYFinal);
+    }
+
     private boolean todasLasCeldasConPared() {
         return tablero.getCeldas().stream().allMatch(celda -> celda.tienePared());
+    }
+
+    private void verificarUbicacion(String unEjeX, String unEjeY) {
+        Celda ubicacionActual = bom.getUbicacion();
+        Celda ubicacionEsperada = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+
+        assertThat(ubicacionActual.getX()).isEqualTo(ubicacionEsperada.getX());
+        assertThat(ubicacionActual.getY()).isEqualTo(ubicacionEsperada.getY());
     }
 }

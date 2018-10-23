@@ -7,6 +7,7 @@ public class Celda {
     private boolean conPared;
     private boolean conEnemigo;
     private Pared pared;
+    private Enemigo enemigo;
 
     public Celda(Integer unEjeX, Integer unEjeY) {
         x = unEjeX;
@@ -43,7 +44,10 @@ public class Celda {
         this.conPared = conPared;
     }
 
-    public void destruirEnemigo(){
+    public void destruirEnemigo(Bomberman bomberman){
+        if (enemigo.esProtoMaxJr()) {
+            bomberman.obtenerPoderDeSalto();
+        }
         this.conEnemigo = false;
     }
 
@@ -62,6 +66,10 @@ public class Celda {
 
     public boolean tieneParedDeMelamina() {
         return pared.esDeMelamina();
+    }
+
+    public void setEnemigo(Enemigo unEnemigo) {
+        enemigo = unEnemigo;
     }
 }
 

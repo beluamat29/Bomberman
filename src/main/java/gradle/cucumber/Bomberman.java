@@ -4,13 +4,19 @@ import java.util.ArrayList;
 
 public class Bomberman extends Personaje {
 
+    private boolean tienePoderDeSalto;
+
     public Bomberman(Celda ubicacionActual) {
         super(ubicacionActual);
+        tienePoderDeSalto = false;
     }
 
     public void moverHacia(Celda unaCelda) {
         if (!unaCelda.tienePared()) {
             ubicacionActual = unaCelda;
+        }
+        if (tienePoderDeSalto) {
+            ubicacionActual = new Celda(unaCelda.getX() + 1, unaCelda.getY());
         }
         if (unaCelda.tieneEnemigo()) {
             morir();
@@ -25,8 +31,15 @@ public class Bomberman extends Personaje {
                 if (celda.tienePared() && celda.tieneParedDeMelamina()) {
                     celda.destruirPared();
                 }
-                celda.destruirEnemigo();
+
+                if (celda.tieneEnemigo()) {
+                    celda.destruirEnemigo(this);
+                }
             }
         });
+    }
+
+    public void obtenerPoderDeSalto() {
+        tienePoderDeSalto = true;
     }
 }
