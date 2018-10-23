@@ -58,26 +58,4 @@ public class MoverStepdefs {
         assertThat(ubicacionActual.getX()).isEqualTo(ubicacionEsperada.getX());
         assertThat(ubicacionActual.getY()).isEqualTo(ubicacionEsperada.getY());
     }
-
-    @Then("^Se destruyo la pared de la celda \"([^\"]*)\" \"([^\"]*)\"")
-    public void verificacionDeCeldaConParedDestruida(String unEjeX, String unEjeY){
-        assertTrue(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)));
-    }
-
-    @When("^Le agrego al tablero la celda con pared \"([^\"]*)\" \"([^\"]*)\"")
-    public void seAgregaCeldaConParedAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), true, false);
-        tablero.agregarCelda(celda);
-    }
-
-    @When("^Le agrego al tablero la celda vacia \"([^\"]*)\" \"([^\"]*)\"")
-    public void seAgregaCeldaVaciaAlTablero(String  unEjeX,  String unEjeY){
-       Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), false, false);
-       tablero.agregarCelda(celda);
-    }
-
-    @When("^Bomberman lanza bomba$")
-    public void bombermanLanzaBomba() throws Throwable {
-        bom.soltarBombaAUnRadioDeCasilleros(2, tablero);
-    }
 }
