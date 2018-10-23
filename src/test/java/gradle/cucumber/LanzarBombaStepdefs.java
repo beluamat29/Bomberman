@@ -1,5 +1,7 @@
 package gradle.cucumber;
 
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -99,5 +101,17 @@ public class LanzarBombaStepdefs {
 
         assertThat(ubicacionActual.getX()).isEqualTo(ubicacionEsperada.getX());
         assertThat(ubicacionActual.getY()).isEqualTo(ubicacionEsperada.getY());
+    }
+
+    @And("^Bomberman obtiene poder y lanza bomba hacia la direccion \"([^\"]*)\" por \"([^\"]*)\" casilleros$")
+    public void bombermanObtienePoderYLanzaBombaHaciaLaPorCasilleros(String direccion, String nCasilleros) throws Throwable {
+        bom.lanzarBombaRecorriendoNCasilleros(Integer.valueOf(nCasilleros), tablero, direccion);
+    }
+
+    @When("^Le agrego al tablero la celda con enemigo Bagulaa \"([^\"]*)\" \"([^\"]*)\"$")
+    public void leAgregoAlTableroLaCeldaConEnemigoBagulaa(String unEjeX, String unEjeY) throws Throwable {
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        new EnemigoBagulaa(celda);
+        tablero.agregarCelda(celda);
     }
 }

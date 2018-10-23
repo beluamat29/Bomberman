@@ -20,4 +20,6 @@ public abstract class Personaje {
     public boolean estaMuerto() {
         return muerto;
     }
+
+
 }

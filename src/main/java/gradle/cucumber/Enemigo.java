@@ -12,4 +12,12 @@ public class Enemigo extends Personaje {
         return false;
     }
 
+    public boolean esBagulaa() {
+        return false;
+    }
+
+    public boolean esProtoMaxUnits() {
+        return false;
+    }
+
 }

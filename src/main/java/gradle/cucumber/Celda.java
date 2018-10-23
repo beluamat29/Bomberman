@@ -48,6 +48,14 @@ public class Celda {
         if (enemigo.esProtoMaxJr()) {
             bomberman.obtenerPoderDeSalto();
         }
+        if(enemigo.esBagulaa()){
+            bomberman.obtenerPoderDeLanzarBombasRecorriendoNCasilleros();
+        }
+        if(enemigo.esProtoMaxUnits()){
+            bomberman.obtenerPoderDeSaltarOLanzarVariasBombas();
+        }
+
+
         this.conEnemigo = false;
     }
 
@@ -70,6 +78,22 @@ public class Celda {
 
     public void setEnemigo(Enemigo unEnemigo) {
         enemigo = unEnemigo;
+    }
+
+    public boolean estaHaciaLaDerecha(Integer ejeX, Integer nCasilleros) {
+        return (x + nCasilleros) >= ejeX  ;
+    }
+
+    public boolean estaHaciaLaIzquierda(Integer ejeX, Integer nCasilleros) {
+        return (x - nCasilleros) <= ejeX  ;
+    }
+
+    public boolean estaHaciaArriba(Integer ejeY, Integer nCasilleros) {
+        return  (y + nCasilleros) >= ejeY  ;
+    }
+
+    public boolean estaHaciaAbajo(Integer ejeY, Integer nCasilleros) {
+        return (y - nCasilleros) <= ejeY  ;
     }
 }
 
