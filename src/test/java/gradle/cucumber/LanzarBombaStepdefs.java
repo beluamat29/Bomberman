@@ -12,20 +12,20 @@ public class LanzarBombaStepdefs {
 
     @Given("^Un Bomberman ubicado en la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void newBomberman(String unEjeX, String unEjeY)throws Throwable {
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), false, false);
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         bom = new Bomberman(celda);
         tablero = new Tablero();
     }
 
     @When("^Le agrego al tablero la celda con pared \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaConParedAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), true, false);
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         tablero.agregarCelda(celda);
     }
 
     @When("^Le agrego al tablero la celda vacia \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaVaciaAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), false, false);
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         tablero.agregarCelda(celda);
     }
 
