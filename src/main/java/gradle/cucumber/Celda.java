@@ -6,11 +6,20 @@ public class Celda {
     private final Integer y;
     private boolean conPared;
     private boolean conEnemigo;
+    private Pared pared;
 
     public Celda(Integer unEjeX, Integer unEjeY) {
         x = unEjeX;
         y = unEjeY;
         conPared = false;
+        conEnemigo = false;
+    }
+
+    public Celda(Integer unEjeX, Integer unEjeY, Pared unaPared) {
+        x = unEjeX;
+        y = unEjeY;
+        pared = unaPared;
+        conPared = true;
         conEnemigo = false;
     }
 
@@ -42,12 +51,17 @@ public class Celda {
         this.conPared = false;
     }
 
-    public boolean estaEnElRadio(Integer ejeX, Integer ejeY) {
-        return (x + 3) >= ejeX && (x - 3) <= ejeX && (y + 3) >= ejeY && (y - 3) <= ejeY;
+    public boolean estaEnElRadio(Integer ejeX, Integer ejeY, Integer radioDeCasilleros) {
+        return (x + radioDeCasilleros) >= ejeX && (x - radioDeCasilleros) <= ejeX
+                && (y + radioDeCasilleros) >= ejeY && (y - radioDeCasilleros) <= ejeY;
     }
 
     public boolean tienePared() {
         return conPared;
+    }
+
+    public boolean tieneParedDeMelamina() {
+        return pared.esDeMelamina();
     }
 }
 

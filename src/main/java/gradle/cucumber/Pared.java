@@ -5,10 +5,8 @@ public class Pared {
     private String tipo;
     private Celda ubicacion;
 
-    public Pared(String tipo, Celda ubicacion){
+    public Pared(String tipo){
         this.tipo = tipo;
-        this.ubicacion = ubicacion;
-        ubicacion.setConPared(true);
     }
 
 
@@ -20,11 +18,7 @@ public class Pared {
         this.tipo = tipo;
     }
 
-    public Celda getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(Celda ubicacion) {
-        this.ubicacion = ubicacion;
+    public boolean esDeMelamina() {
+        return tipo.equals("Melamina");
     }
 }

@@ -17,12 +17,14 @@ public class Bomberman extends Personaje {
         }
     }
 
-    public void soltarBombaAUnRadioDeCasilleros(int radioDeCasilleros, Tablero tablero) {
+    public void soltarBombaAUnRadioDeCasilleros(Integer radioDeCasilleros, Tablero tablero) {
         ArrayList<Celda> celdasTablero = tablero.getCeldas();
 
         celdasTablero.forEach(celda -> {
-            if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY())) {
-                celda.destruirPared();
+            if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros)) {
+                if (celda.tienePared() && celda.tieneParedDeMelamina()) {
+                    celda.destruirPared();
+                }
                 celda.destruirEnemigo();
             }
         });

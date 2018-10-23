@@ -31,8 +31,7 @@ public class MoverStepdefs {
 
     @When("^Le paso la celda con pared \"([^\"]*)\" \"([^\"]*)\"")
     public void bombermanSeQuiereMoverACeldaConPared(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        pared = new Pared("Melamina", celda);
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), pared = new Pared("Melamina"));
         bom.moverHacia(celda);
     }
 

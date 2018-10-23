@@ -18,10 +18,15 @@ public class LanzarBombaStepdefs {
         tablero = new Tablero();
     }
 
-    @When("^Le agrego al tablero la celda con pared \"([^\"]*)\" \"([^\"]*)\"")
-    public void seAgregaCeldaConParedAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        new Pared("Melamina", celda);
+    @When("^Le agrego al tablero la celda con pared melamina \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaConParedMelaminaAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Melamina"));
+        tablero.agregarCelda(celda);
+    }
+
+    @When("^Le agrego al tablero la celda con pared acero \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaConParedAceroAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Acero"));
         tablero.agregarCelda(celda);
     }
 
@@ -48,9 +53,14 @@ public class LanzarBombaStepdefs {
         assertFalse(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tienePared());
     }
 
-    @Then("^No se destruye ninguna pared en la celda \"([^\"]*)\" \"([^\"]*)\"")
+    @Then("^No se destruye la pared en la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void verificacionDeParedesSinDestuir(String unEjeX, String unEjeY){
         assertTrue(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tienePared());
+    }
+
+    @Then("^No se destruye ninguna pared")
+    public void verificacionDeParedesSinDestuir(){
+        assertTrue(todasLasCeldasConPared());
     }
 
     @Then("^Se elimina al enemigo de la celda \"([^\"]*)\" \"([^\"]*)\"")
@@ -61,5 +71,9 @@ public class LanzarBombaStepdefs {
     @Then("^No se elimina al enemigo de la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void verificacionDeCeldaEnemigoNoDestruido(String unEjeX, String unEjeY){
         assertTrue(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tieneEnemigo());
+    }
+
+    private boolean todasLasCeldasConPared() {
+        return tablero.getCeldas().stream().allMatch(celda -> celda.tienePared());
     }
 }
