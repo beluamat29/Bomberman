@@ -49,40 +49,38 @@ public abstract class Personaje {
             //Verifico el radio de celdas hacia la derecha
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX + i) && celdasTablero.get(indiceCelda).getY() == (celdaActualY)){
 
-                if(!celdasTablero.get(indiceCelda).noTienePared()){
-                    celdasTablero.get(indiceCelda).destruirPared();
-                }else if(celdasTablero.get(indiceCelda).tieneEnemigo()){
-                    celdasTablero.get(indiceCelda).destruirEnemigo();
-                }
+                verificacionDeObstaculo(celdasTablero.get(indiceCelda));
             }
 
             //Verifico el radio de celdas hacia la izquierda
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX - i) && celdasTablero.get(indiceCelda).getY() == (celdaActualY)){
 
-                if(!celdasTablero.get(indiceCelda).noTienePared()){
-                    celdasTablero.get(indiceCelda).destruirPared();
-                }
+                verificacionDeObstaculo(celdasTablero.get(indiceCelda));
             }
 
             //Verifico el radio de celdas hacia arriba
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX ) && celdasTablero.get(indiceCelda).getY() == (celdaActualY + 1)){
 
-                if(!celdasTablero.get(indiceCelda).noTienePared()){
-                    celdasTablero.get(indiceCelda).destruirPared();
-                }
+                verificacionDeObstaculo(celdasTablero.get(indiceCelda));
             }
 
             //Verifico el radio de celdas hacia abajo
             if(celdasTablero.get(indiceCelda).getX() == (celdaActualX ) && celdasTablero.get(indiceCelda).getY() == (celdaActualY - 1)){
 
-                if(!celdasTablero.get(indiceCelda).noTienePared()){
-                    celdasTablero.get(indiceCelda).destruirPared();
-                }
-
+                verificacionDeObstaculo(celdasTablero.get(indiceCelda));
             }
+
             indiceCelda = indiceCelda + 1;
         }
 
+    }
+
+    public void verificacionDeObstaculo(Celda celda){
+        if(!celda.noTienePared()){
+            celda.destruirPared();
+        }else if(celda.tieneEnemigo()){
+            celda.destruirEnemigo();
+        }
     }
 
     public Tablero getTablero() {
