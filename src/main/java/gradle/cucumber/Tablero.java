@@ -6,14 +6,7 @@ public class Tablero {
     private Celda celda;
     private ArrayList<Celda> celdas = new ArrayList<Celda>();
 
-
-    public Tablero(ArrayList<Celda> celdas){
-        this.celdas = celdas;
-    }
-
-    public Tablero(){
-
-    }
+    public Tablero(){}
 
     public void agregarCelda(Celda celda){
         this.celdas.add(celda);
@@ -32,24 +25,7 @@ public class Tablero {
     }
 
 
-    public Boolean getCeldaEnEjes(Integer ejeX, Integer ejeY) {
-
-        boolean noEncontrado = true;
-
-        int i = 0;
-        while (noEncontrado){
-            if (this.getCeldas().get(i).getX() == ejeX && this.getCeldas().get(i).getY() == ejeY){
-                noEncontrado = false;
-                if(this.getCeldas().get(i).noTienePared()){
-                    return true;
-                }
-
-            }else{
-                i = i + 1;
-
-            }
-
-        }
-    return false;
+    public Celda getCeldaEnEjes(Integer ejeX, Integer ejeY) {
+        return celdas.stream().filter(celda -> celda.getX().equals(ejeX) && celda.getY().equals(ejeY)).findFirst().get();
     }
 }

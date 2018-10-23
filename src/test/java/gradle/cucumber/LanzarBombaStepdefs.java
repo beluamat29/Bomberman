@@ -5,6 +5,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class LanzarBombaStepdefs {
     private Bomberman bom;
@@ -20,6 +21,14 @@ public class LanzarBombaStepdefs {
     @When("^Le agrego al tablero la celda con pared \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaConParedAlTablero(String  unEjeX,  String unEjeY){
         Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        new Pared("Melamina", celda);
+        tablero.agregarCelda(celda);
+    }
+
+    @When("^Le agrego al tablero la celda con enemigo \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaConEnemigoAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        new Enemigo(celda);
         tablero.agregarCelda(celda);
     }
 
@@ -34,9 +43,23 @@ public class LanzarBombaStepdefs {
         bom.soltarBombaAUnRadioDeCasilleros(2, tablero);
     }
 
-
     @Then("^Se destruyo la pared de la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void verificacionDeCeldaConParedDestruida(String unEjeX, String unEjeY){
-        assertTrue(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)));
+        assertFalse(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tienePared());
+    }
+
+    @Then("^No se destruye ninguna pared en la celda \"([^\"]*)\" \"([^\"]*)\"")
+    public void verificacionDeParedesSinDestuir(String unEjeX, String unEjeY){
+        assertTrue(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tienePared());
+    }
+
+    @Then("^Se elimina al enemigo de la celda \"([^\"]*)\" \"([^\"]*)\"")
+    public void verificacionDeCeldaEnemigoDestruido(String unEjeX, String unEjeY){
+        assertFalse(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tieneEnemigo());
+    }
+
+    @Then("^No se elimina al enemigo de la celda \"([^\"]*)\" \"([^\"]*)\"")
+    public void verificacionDeCeldaEnemigoNoDestruido(String unEjeX, String unEjeY){
+        assertTrue(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tieneEnemigo());
     }
 }

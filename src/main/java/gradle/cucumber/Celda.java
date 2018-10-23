@@ -14,10 +14,6 @@ public class Celda {
         conEnemigo = false;
     }
 
-    public boolean noTienePared() {
-        return !conPared;
-    }
-
     public Integer getX() {
         return x;
     }
@@ -46,5 +42,12 @@ public class Celda {
         this.conPared = false;
     }
 
+    public boolean estaEnElRadio(Integer ejeX, Integer ejeY) {
+        return (x + 3) >= ejeX && (x - 3) <= ejeX && (y + 3) >= ejeY && (y - 3) <= ejeY;
+    }
+
+    public boolean tienePared() {
+        return conPared;
+    }
 }
 
