@@ -1,12 +1,8 @@
 package gradle.cucumber;
 
-public class Enemigo extends Personaje {
+public abstract class Enemigo extends Personaje {
 
-    public Enemigo(Celda ubicacionActual) {
-        super(ubicacionActual);
-        ubicacionActual.setTieneEnemigo(true);
-        ubicacionActual.setEnemigo(this);
-    }
+    public Enemigo() { }
 
     public boolean esProtoMaxJr() {
         return false;
@@ -20,5 +16,5 @@ public class Enemigo extends Personaje {
         return false;
     }
 
-    public void otorgarPoderAlMorirPara(Bomberman bomberman) {}
+    public abstract void otorgarPoderAlMorirPara(Bomberman bomberman);
 }

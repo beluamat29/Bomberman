@@ -2,8 +2,8 @@ package gradle.cucumber;
 
 public class EnemigoBagulaa extends Enemigo {
 
-    public EnemigoBagulaa(Celda ubicacionActual) {
-        super(ubicacionActual);
+    public EnemigoBagulaa() {
+        super();
     }
 
     @Override
@@ -14,5 +14,6 @@ public class EnemigoBagulaa extends Enemigo {
     @Override
     public void otorgarPoderAlMorirPara(Bomberman bomberman) {
         bomberman.obtenerPoderDeLanzarBombasRecorriendoNCasilleros();
+        morir();
     }
 }

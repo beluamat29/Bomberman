@@ -87,4 +87,8 @@ public class Tablero {
             return ubicacionActual;
         }
     }
+
+    public void eliminarCelda(Celda celda) {
+        celdas.remove(celda);
+    }
 }

@@ -17,7 +17,7 @@ public class LanzarBombaStepdefs {
 
     @Given("^Un Bomberman ubicado en la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void newBomberman(String unEjeX, String unEjeY)throws Throwable {
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        Celda celda = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         bomba = new Bomba(3);
         bom = new Bomberman(celda, bomba);
         tablero = new Tablero();
@@ -25,33 +25,31 @@ public class LanzarBombaStepdefs {
 
     @When("^Le agrego al tablero la celda con pared melamina \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaConParedMelaminaAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Melamina"));
+        Celda celda = new CeldaConPared(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Melamina"));
         tablero.agregarCelda(celda);
     }
 
     @When("^Le agrego al tablero la celda con pared acero \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaConParedAceroAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Acero"));
+        Celda celda = new CeldaConPared(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Acero"));
         tablero.agregarCelda(celda);
     }
 
     @When("^Le agrego al tablero la celda con enemigo \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaConEnemigoAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        new Enemigo(celda);
+        Celda celda = new CeldaConEnemigo(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new EnemigoBagulaa());
         tablero.agregarCelda(celda);
     }
 
     @When("^Le agrego al tablero la celda con enemigo Proto Max Jr \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaConEnemigoProtoMaxJrAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        new EnemigoProtoMaxJr(celda);
+        Celda celda = new CeldaConEnemigo(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new EnemigoProtoMaxJr());
         tablero.agregarCelda(celda);
     }
 
     @When("^Le agrego al tablero la celda vacia \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaVaciaAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        Celda celda = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         tablero.agregarCelda(celda);
     }
 
@@ -101,7 +99,7 @@ public class LanzarBombaStepdefs {
 
     private void verificarUbicacion(String unEjeX, String unEjeY) {
         Celda ubicacionActual = bom.getUbicacion();
-        Celda ubicacionEsperada = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        Celda ubicacionEsperada = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
 
         assertThat(ubicacionActual.getX()).isEqualTo(ubicacionEsperada.getX());
         assertThat(ubicacionActual.getY()).isEqualTo(ubicacionEsperada.getY());
@@ -114,16 +112,14 @@ public class LanzarBombaStepdefs {
 
     @When("^Le agrego al tablero la celda con enemigo Bagulaa \"([^\"]*)\" \"([^\"]*)\"$")
     public void leAgregoAlTableroLaCeldaConEnemigoBagulaa(String unEjeX, String unEjeY) throws Throwable {
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        new EnemigoBagulaa(celda);
+        Celda celda = new CeldaConEnemigo(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new EnemigoBagulaa());
         tablero.agregarCelda(celda);
     }
 
 
     @When("^Le agrego al tablero la celda con enemigo Proto Max Units \"([^\"]*)\" \"([^\"]*)\"$")
     public void leAgregoAlTableroLaCeldaConEnemigoProtoMaxUnits(String x, String y) throws Throwable {
-        Celda celda = new Celda(Integer.valueOf(x), Integer.valueOf(y));
-        new EnemigoProtoMaxUnits(celda);
+        Celda celda = new CeldaConEnemigo(Integer.valueOf(x), Integer.valueOf(y), new EnemigoProtoMaxUnits());
         tablero.agregarCelda(celda);
     }
 
@@ -135,7 +131,7 @@ public class LanzarBombaStepdefs {
 
     @Given("^Bomberman ubicado en la celda \"([^\"]*)\" \"([^\"]*)\" lanza bomba de \"([^\"]*)\" tick$")
     public void bombermanUbicadoEnLaCeldaLanzaBombaDeTick(String x, String y, String tick) throws Throwable {
-        Celda celda = new Celda(Integer.valueOf(x), Integer.valueOf(y));
+        Celda celda = new CeldaVacia(Integer.valueOf(x), Integer.valueOf(y));
         bomba = new Bomba(Integer.valueOf(tick));
         bom = new Bomberman(celda,bomba);
     }

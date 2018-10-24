@@ -2,8 +2,8 @@ package gradle.cucumber;
 
 public class EnemigoProtoMaxUnits extends Enemigo {
 
-    public EnemigoProtoMaxUnits(Celda ubicacionActual) {
-        super(ubicacionActual);
+    public EnemigoProtoMaxUnits() {
+        super();
     }
 
     @Override
@@ -14,5 +14,6 @@ public class EnemigoProtoMaxUnits extends Enemigo {
     @Override
     public void otorgarPoderAlMorirPara(Bomberman bomberman) {
         bomberman.obtenerPoderDeSaltarOLanzarVariasBombas();
+        morir();
     }
 }

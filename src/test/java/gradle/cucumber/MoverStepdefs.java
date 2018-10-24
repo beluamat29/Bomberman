@@ -19,10 +19,11 @@ public class MoverStepdefs {
 
     @Given("^Un Bomberman en la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void newBomberman(String unEjeX, String unEjeY)throws Throwable {
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        Celda celda = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         bomba = new Bomba(5);
         bom = new Bomberman(celda,bomba);
         tablero = new Tablero();
+        tablero.agregarCelda(celda);
     }
 
     @When("^Bomberman se mueve hacia la \"([^\"]*)\"")
@@ -32,20 +33,19 @@ public class MoverStepdefs {
 
     @When("^Le agrego al tablero una celda vacia \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaVaciaAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        Celda celda = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
         tablero.agregarCelda(celda);
     }
 
     @When("^Le agrego al tablero una celda con enemigo \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaConEnemigoAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        new Enemigo(celda);
+        Celda celda = new CeldaConEnemigo(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new EnemigoBagulaa());
         tablero.agregarCelda(celda);
     }
 
     @When("^Le agrego al tablero una celda con pared melamina \"([^\"]*)\" \"([^\"]*)\"")
     public void seAgregaCeldaConParedMelaminaAlTablero(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Melamina"));
+        Celda celda = new CeldaConPared(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Melamina"));
         tablero.agregarCelda(celda);
     }
 
@@ -62,7 +62,7 @@ public class MoverStepdefs {
 
     private void verificarUbicacion(String unEjeX, String unEjeY) {
         Celda ubicacionActual = bom.getUbicacion();
-        Celda ubicacionEsperada = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        Celda ubicacionEsperada = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
 
         assertThat(ubicacionActual.getX()).isEqualTo(ubicacionEsperada.getX());
         assertThat(ubicacionActual.getY()).isEqualTo(ubicacionEsperada.getY());

@@ -8,13 +8,19 @@ public class Bomberman extends Personaje {
     private boolean tienePoderDeLanzarBombasNCasilleros;
     private boolean bombaDisponible;
     private Bomba bomba;
+    private Celda ubicacionActual;
 
     public Bomberman(Celda ubicacionActual, Bomba bomba) {
-        super(ubicacionActual);
+        super();
+        this.ubicacionActual = ubicacionActual;
         tienePoderDeSalto = false;
         tienePoderDeLanzarBombasNCasilleros = false;
         bombaDisponible = true;
         this.bomba = bomba;
+    }
+
+    public Celda getUbicacion() {
+        return ubicacionActual;
     }
 
     public void moverHacia(String direccion, Tablero tablero) {
@@ -22,15 +28,7 @@ public class Bomberman extends Personaje {
 
         nuevaUbicacion = tablero.celdaHacia(direccion, ubicacionActual);
 
-        if (!nuevaUbicacion.tienePared()) {
-            ubicacionActual = nuevaUbicacion;
-        } else if (tienePoderDeSalto) {
-            ubicacionActual = nuevaUbicacion;
-            moverHacia(direccion, tablero);
-        }
-        if (ubicacionActual.tieneEnemigo()) {
-            morir();
-        }
+        nuevaUbicacion.realizarAccionPara(this, direccion, tablero);
     }
 
     public void soltarBombaAUnRadioDeCasilleros(Integer radioDeCasilleros, Tablero tablero) {
@@ -38,10 +36,9 @@ public class Bomberman extends Personaje {
         setBombaDisponible(true);
         celdasTablero.forEach(celda -> {
             if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros) && bombaDisponible) {
-                verificacionYEliminacionDeEnemigosYObstaculos(celda);
+                verificacionYEliminacionDeEnemigosYObstaculos(celda, tablero);
             }
         });
-
     }
 
     public void obtenerPoderDeLanzarBombasRecorriendoNCasilleros() {
@@ -62,29 +59,17 @@ public class Bomberman extends Personaje {
 
         if (tienePoderDeLanzarBombasNCasilleros) {
             celda = tablero.getCeldaHaceNCasillerosEnDireccion(direccion, nCasilleros, ubicacionActual);
-            verificacionYEliminacionDeEnemigosYObstaculos(celda);
+            verificacionYEliminacionDeEnemigosYObstaculos(celda, tablero);
         }
-
     }
 
+    public void verificacionYEliminacionDeEnemigosYObstaculos(Celda celda, Tablero tablero) {
 
-
-    public void verificacionYEliminacionDeEnemigosYObstaculos(Celda celda) {
-
-        if (celda.tieneParedDeMelamina()) {
-            celda.destruirPared();
-        }
-
-        if (celda.tieneEnemigo()) {
-            celda.destruirEnemigo(this);
-        }
-
+        celda.destruirObstaculoPara(this, tablero);
 
         //Una vez que la bomba explota se vuelve a actualizar
         this.getBomba().setExploto(false);
-
     }
-
 
     public Bomba getBomba() {
         return bomba;
@@ -100,5 +85,13 @@ public class Bomberman extends Personaje {
 
     public void setBombaDisponible(boolean bombaDisponible) {
         this.bombaDisponible = bombaDisponible;
+    }
+
+    public void setUbicacion(Celda celda) {
+        ubicacionActual = celda;
+    }
+
+    public boolean tienePoderDeSalto() {
+        return tienePoderDeSalto;
     }
 }

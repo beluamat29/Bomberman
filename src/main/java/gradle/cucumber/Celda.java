@@ -1,28 +1,19 @@
 package gradle.cucumber;
 
-public class Celda {
+public abstract class Celda {
 
-    private final Integer x;
-    private final Integer y;
-    private boolean conPared;
-    private boolean conEnemigo;
-    private Pared pared;
-    private Enemigo enemigo;
+    protected final Integer x;
+    protected final Integer y;
+    protected boolean conPared;
+    protected boolean conEnemigo;
+    protected Pared pared;
+    protected Enemigo enemigo;
 
     public Celda(Integer unEjeX, Integer unEjeY) {
         x = unEjeX;
         y = unEjeY;
-        conPared = false;
-        conEnemigo = false;
     }
 
-    public Celda(Integer unEjeX, Integer unEjeY, Pared unaPared) {
-        x = unEjeX;
-        y = unEjeY;
-        pared = unaPared;
-        conPared = true;
-        conEnemigo = false;
-    }
 
     public Integer getX() {
         return x;
@@ -32,23 +23,7 @@ public class Celda {
         return y;
     }
 
-    public boolean tieneEnemigo() {
-        return conEnemigo;
-    }
-
-    public void setTieneEnemigo(Boolean tieneEnemigo){
-        this.conEnemigo = tieneEnemigo;
-    }
-
-    public void setConPared(Boolean conPared){
-        this.conPared = conPared;
-    }
-
-    public void destruirEnemigo(Bomberman bomberman){
-        enemigo.otorgarPoderAlMorirPara(bomberman);
-
-        this.conEnemigo = false;
-    }
+    public abstract boolean tieneEnemigo();
 
     public void destruirPared() {
         this.conPared = false;
@@ -59,48 +34,12 @@ public class Celda {
                 && (y + radioDeCasilleros) >= ejeY && (y - radioDeCasilleros) <= ejeY;
     }
 
-    public boolean tienePared() {
-        return conPared;
-    }
+    public abstract boolean tienePared();
 
-    public boolean tieneParedDeMelamina() {
-        return conPared && pared.esDeMelamina();
-    }
+    public abstract boolean tieneParedDeMelamina();
 
-    public void setEnemigo(Enemigo unEnemigo) {
-        enemigo = unEnemigo;
-    }
+    public abstract void destruirObstaculoPara(Bomberman bomberman, Tablero tablero);
 
-    public boolean estaHaciaLaDerecha(Integer ejeX, Integer nCasilleros) {
-        return (x + nCasilleros) >= ejeX  ;
-    }
-
-    public boolean estaHaciaLaIzquierda(Integer ejeX, Integer nCasilleros) {
-        return (x - nCasilleros) <= ejeX  ;
-    }
-
-    public boolean estaHaciaArriba(Integer ejeY, Integer nCasilleros) {
-        return  (y + nCasilleros) >= ejeY  ;
-    }
-
-    public boolean estaHaciaAbajo(Integer ejeY, Integer nCasilleros) {
-        return (y - nCasilleros) <= ejeY  ;
-    }
-
-    public Celda celdaHaciaLaDerecha() {
-        return new Celda(x + 1, y);
-    }
-
-    public Celda celdaHaciaLaIzquierda() {
-        return new Celda(x -1, y);
-    }
-
-    public Celda celdaHaciaArriba() {
-        return new Celda(x, y + 1);
-    }
-
-    public Celda celdaHaciaAbajo() {
-        return new Celda(x, y - 1);
-    }
+    public abstract void realizarAccionPara(Bomberman bomberman, String direccion, Tablero tablero);
 }
 
