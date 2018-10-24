@@ -64,7 +64,6 @@ public class Bomberman extends Personaje {
     }
 
     public void verificacionYEliminacionDeEnemigosYObstaculos(Celda celda, Tablero tablero) {
-
         celda.destruirObstaculoPara(this, tablero);
 
         //Una vez que la bomba explota se vuelve a actualizar
