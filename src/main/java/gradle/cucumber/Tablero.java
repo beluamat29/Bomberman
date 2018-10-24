@@ -28,4 +28,28 @@ public class Tablero {
     public Celda getCeldaEnEjes(Integer ejeX, Integer ejeY) {
         return celdas.stream().filter(celda -> celda.getX().equals(ejeX) && celda.getY().equals(ejeY)).findFirst().get();
     }
+
+    public Celda celdaHaciaLaDerecha(Celda unaCelda) {
+        return celdas.stream()
+                .filter(celda -> celda.getX().equals(unaCelda.getX() + 1) && celda.getY().equals(unaCelda.getY()))
+                .findFirst().get();
+    }
+
+    public Celda celdaHaciaLaIzquierda(Celda unaCelda) {
+        return celdas.stream()
+                .filter(celda -> celda.getX().equals(unaCelda.getX() - 1) && celda.getY().equals(unaCelda.getY()))
+                .findFirst().get();
+    }
+
+    public Celda celdaHaciaArriba(Celda unaCelda) {
+        return celdas.stream()
+                .filter(celda -> celda.getX().equals(unaCelda.getX()) && celda.getY().equals(unaCelda.getY() + 1))
+                .findFirst().get();
+    }
+
+    public Celda celdaHaciaAbajo(Celda unaCelda) {
+        return celdas.stream()
+                .filter(celda -> celda.getX().equals(unaCelda.getX()) && celda.getY().equals(unaCelda.getY() - 1))
+                .findFirst().get();
+    }
 }

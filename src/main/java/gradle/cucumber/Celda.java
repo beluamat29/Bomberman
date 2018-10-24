@@ -86,5 +86,21 @@ public class Celda {
     public boolean estaHaciaAbajo(Integer ejeY, Integer nCasilleros) {
         return (y - nCasilleros) <= ejeY  ;
     }
+
+    public Celda celdaHaciaLaDerecha() {
+        return new Celda(x + 1, y);
+    }
+
+    public Celda celdaHaciaLaIzquierda() {
+        return new Celda(x -1, y);
+    }
+
+    public Celda celdaHaciaArriba() {
+        return new Celda(x, y + 1);
+    }
+
+    public Celda celdaHaciaAbajo() {
+        return new Celda(x, y - 1);
+    }
 }
 

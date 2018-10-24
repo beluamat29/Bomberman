@@ -60,6 +60,11 @@ public class LanzarBombaStepdefs {
         bom.soltarBombaAUnRadioDeCasilleros(3, tablero);
     }
 
+    @When("^Bomberman se mueve hacia la direccion \"([^\"]*)\"")
+    public void bombermanSeMueveHacia(String direccion){
+        bom.moverHacia(direccion, tablero);
+    }
+
     @Then("^Se destruyo la pared de la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void verificacionDeCeldaConParedDestruida(String unEjeX, String unEjeY){
         assertFalse(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tienePared());
@@ -85,11 +90,8 @@ public class LanzarBombaStepdefs {
         assertTrue(tablero.getCeldaEnEjes(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY)).tieneEnemigo());
     }
 
-    @Then("^Bomberman obtiene poder, se quiere mover a \"([^\"]*)\" \"([^\"]*)\" pero salta paredes moviendose a celda \"([^\"]*)\" \"([^\"]*)\"")
-    public void verificacionDeObtencionDePoderDeSaltarParedes(String unEjeX, String unEjeY, String unEjeXFinal, String unEjeYFinal){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        bom.moverHacia(celda);
-
+    @Then("^Salta paredes moviendose a celda \"([^\"]*)\" \"([^\"]*)\"")
+    public void verificacionDeObtencionDePoderDeSaltarParedes(String unEjeXFinal, String unEjeYFinal){
         verificarUbicacion(unEjeXFinal, unEjeYFinal);
     }
 
@@ -117,12 +119,6 @@ public class LanzarBombaStepdefs {
         tablero.agregarCelda(celda);
     }
 
-    @Then("^Se mueve hacia la direccion \"([^\"]*)\" salta la pared y su ubicacion actual es \"([^\"]*)\" \"([^\"]*)\"$")
-    public void seMueveHaciaLaDireccionSaltaLaParedYSuUbicacionActualEs(String direccion, String x, String y) throws Throwable {
-        bom.saltarParedesHaciaUnaDireccion(direccion, tablero);
-        verificarUbicacion(x, y);
-
-    }
 
     @When("^Le agrego al tablero la celda con enemigo Proto Max Units \"([^\"]*)\" \"([^\"]*)\"$")
     public void leAgregoAlTableroLaCeldaConEnemigoProtoMaxUnits(String x, String y) throws Throwable {

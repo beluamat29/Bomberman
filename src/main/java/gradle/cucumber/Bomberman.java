@@ -6,8 +6,6 @@ public class Bomberman extends Personaje {
 
     private boolean tienePoderDeSalto;
     private boolean tienePoderDeLanzarBombasNCasilleros;
-    private boolean tienePoderDeSaltarOLanzarVariasBombas;
-    private boolean tienePoderDeSaltoNVeces;
     private boolean bombaDisponible;
     private Bomba bomba;
 
@@ -15,20 +13,34 @@ public class Bomberman extends Personaje {
         super(ubicacionActual);
         tienePoderDeSalto = false;
         tienePoderDeLanzarBombasNCasilleros = false;
-        tienePoderDeSaltarOLanzarVariasBombas = false;
-        tienePoderDeSaltoNVeces = false;
         bombaDisponible = true;
         this.bomba = bomba;
     }
 
-    public void moverHacia(Celda unaCelda) {
-        if (!unaCelda.tienePared()) {
-            ubicacionActual = unaCelda;
+    public void moverHacia(String direccion, Tablero tablero) {
+        Celda nuevaUbicacion = null;
+
+        if (direccion.equals("derecha")) {
+            nuevaUbicacion = tablero.celdaHaciaLaDerecha(ubicacionActual);
         }
-        if (tienePoderDeSalto) {
-            ubicacionActual = new Celda(unaCelda.getX() + 1, unaCelda.getY());
+        else if (direccion.equals("izquierda")) {
+            nuevaUbicacion = tablero.celdaHaciaLaIzquierda(ubicacionActual);
         }
-        if (unaCelda.tieneEnemigo()) {
+        else if (direccion.equals("arriba")) {
+            nuevaUbicacion = tablero.celdaHaciaArriba(ubicacionActual);
+        }
+        else if (direccion.equals("abajo")) {
+            nuevaUbicacion = tablero.celdaHaciaAbajo(ubicacionActual);
+        }
+
+        if (!nuevaUbicacion.tienePared()) {
+            ubicacionActual = nuevaUbicacion;
+        }
+        else if (tienePoderDeSalto) {
+            ubicacionActual = nuevaUbicacion;
+            moverHacia(direccion, tablero);
+        }
+        if (ubicacionActual.tieneEnemigo()) {
             morir();
         }
     }
@@ -49,7 +61,7 @@ public class Bomberman extends Personaje {
     }
 
     public void obtenerPoderDeSaltarOLanzarVariasBombas(){
-        tienePoderDeSaltoNVeces = true;
+        tienePoderDeSalto = true;
         tienePoderDeLanzarBombasNCasilleros = true;
     }
 
@@ -96,33 +108,6 @@ public class Bomberman extends Personaje {
 
         //Una vez que la bomba explota se vuelve a actualizar
         this.getBomba().setExploto(false);
-
-    }
-
-    public void saltarParedesHaciaUnaDireccion(String direccion, Tablero tablero){
-        ArrayList<Celda> celdasTablero = tablero.getCeldas();
-        if(tienePoderDeSaltoNVeces){
-            int radio = 1;
-            for (Celda celda : celdasTablero){
-                if (direccion.equalsIgnoreCase("derecha") &&
-                        celda.estaHaciaLaDerecha(ubicacionActual.getX(), radio) && !celda.tienePared() ) {
-                    moverHacia(celda);
-                }
-                if (direccion.equalsIgnoreCase("izquierda") &&
-                        celda.estaHaciaLaIzquierda(ubicacionActual.getX(), radio) && !celda.tienePared() ) {
-                    moverHacia(celda);
-                }
-                if (direccion.equalsIgnoreCase("arriba") &&
-                        celda.estaHaciaArriba(ubicacionActual.getY(), radio) && !celda.tienePared() ) {
-                    moverHacia(celda);
-                }
-                if (direccion.equalsIgnoreCase("abajo") &&
-                        celda.estaHaciaAbajo(ubicacionActual.getY(), radio) && !celda.tienePared() ) {
-                    moverHacia(celda);
-                }
-                radio = radio + 1;
-            }
-        }
 
     }
 

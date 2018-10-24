@@ -25,23 +25,28 @@ public class MoverStepdefs {
         tablero = new Tablero();
     }
 
-    @When("^Le paso la celda vacia \"([^\"]*)\" \"([^\"]*)\"")
-    public void bombermanSeMueveHacia(String unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        bom.moverHacia(celda);
+    @When("^Bomberman se mueve hacia la \"([^\"]*)\"")
+    public void bombermanSeMueveHacia(String direccion){
+        bom.moverHacia(direccion, tablero);
     }
 
-    @When("^Le paso la celda con pared \"([^\"]*)\" \"([^\"]*)\"")
-    public void bombermanSeQuiereMoverACeldaConPared(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), pared = new Pared("Melamina"));
-        bom.moverHacia(celda);
+    @When("^Le agrego al tablero una celda vacia \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaVaciaAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        tablero.agregarCelda(celda);
     }
 
-    @When("Le paso una celda con un enemigo \"([^\"]*)\" \"([^\"]*)\"")
-    public void bombermanSeQuiereMoverACeldaConEnemigo(String  unEjeX,  String unEjeY){
+    @When("^Le agrego al tablero una celda con enemigo \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaConEnemigoAlTablero(String  unEjeX,  String unEjeY){
         Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        enemigo = new Enemigo(celda);
-        bom.moverHacia(celda);
+        new Enemigo(celda);
+        tablero.agregarCelda(celda);
+    }
+
+    @When("^Le agrego al tablero una celda con pared melamina \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaConParedMelaminaAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Melamina"));
+        tablero.agregarCelda(celda);
     }
 
     @Then("^Esta vivo y su ubicacion actual es \"([^\"]*)\" \"([^\"]*)\"")
@@ -50,9 +55,8 @@ public class MoverStepdefs {
         assertFalse(bom.estaMuerto());
     }
 
-    @Then("^Esta muerto pero su ubicacion actual es \"([^\"]*)\" \"([^\"]*)\"")
-    public void verificacionDeUbicacionYMuerte(String unEjeX, String unEjeY){
-        verificarUbicacion(unEjeX, unEjeY);
+    @Then("^Bomberman muere")
+    public void verificacionDeMuerte(){
         assertTrue(bom.estaMuerto());
     }
 
