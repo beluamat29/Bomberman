@@ -36,9 +36,8 @@ public class Bomberman extends Personaje {
     public void soltarBombaAUnRadioDeCasilleros(Integer radioDeCasilleros, Tablero tablero) {
         ArrayList<Celda> celdasTablero = tablero.getCeldas();
         setBombaDisponible(true);
-        this.getBomba().setExploto(false);
         celdasTablero.forEach(celda -> {
-            if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros) && bombaDisponible && !(getBomba().getExploto()) ) {
+            if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros) && bombaDisponible ) {
                 verificacionYEliminacionDeEnemigosYObstaculos(celda);
             }
         });
@@ -96,7 +95,7 @@ public class Bomberman extends Personaje {
 
 
         //Una vez que la bomba explota se vuelve a actualizar
-        //this.getBomba().setExploto(false);
+        this.getBomba().setExploto(false);
 
     }
 
