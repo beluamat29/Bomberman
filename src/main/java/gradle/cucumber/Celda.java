@@ -45,16 +45,7 @@ public class Celda {
     }
 
     public void destruirEnemigo(Bomberman bomberman){
-        if (enemigo.esProtoMaxJr()) {
-            bomberman.obtenerPoderDeSalto();
-        }
-        if(enemigo.esBagulaa()){
-            bomberman.obtenerPoderDeLanzarBombasRecorriendoNCasilleros();
-        }
-        if(enemigo.esProtoMaxUnits()){
-            bomberman.obtenerPoderDeSaltarOLanzarVariasBombas();
-        }
-
+        enemigo.otorgarPoderAlMorirPara(bomberman);
 
         this.conEnemigo = false;
     }

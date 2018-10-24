@@ -10,4 +10,9 @@ public class EnemigoProtoMaxUnits extends Enemigo {
     public boolean esProtoMaxUnits() {
         return true;
     }
+
+    @Override
+    public void otorgarPoderAlMorirPara(Bomberman bomberman) {
+        bomberman.obtenerPoderDeSaltarOLanzarVariasBombas();
+    }
 }

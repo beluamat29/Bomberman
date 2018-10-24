@@ -57,7 +57,7 @@ public class LanzarBombaStepdefs {
 
     @When("^Bomberman lanza bomba$")
     public void bombermanLanzaBomba() throws Throwable {
-        bom.soltarBombaAUnRadioDeCasilleros(2, tablero);
+        bom.soltarBombaAUnRadioDeCasilleros(3, tablero);
     }
 
     @Then("^Se destruyo la pared de la celda \"([^\"]*)\" \"([^\"]*)\"")
