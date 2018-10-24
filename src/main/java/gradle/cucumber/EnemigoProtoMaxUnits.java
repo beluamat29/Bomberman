@@ -1,19 +1,19 @@
 package gradle.cucumber;
 
-public class EnemigoProtoMaxJr extends Enemigo {
+public class EnemigoProtoMaxUnits extends Enemigo {
 
-    public EnemigoProtoMaxJr() {
+    public EnemigoProtoMaxUnits() {
         super();
     }
 
     @Override
-    public boolean esProtoMaxJr() {
+    public boolean esProtoMaxUnits() {
         return true;
     }
 
     @Override
     public void otorgarPoderAlMorirPara(Bomberman bomberman) {
-        bomberman.obtenerPoderDeSalto();
+        bomberman.obtenerPoderDeSaltarOLanzarVariasBombas();
         morir();
     }
 }

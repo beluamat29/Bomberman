@@ -15,31 +15,38 @@ public class MoverStepdefs {
     private Tablero tablero;
     private Enemigo enemigo;
     private Pared pared;
+    private Bomba bomba;
 
     @Given("^Un Bomberman en la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void newBomberman(String unEjeX, String unEjeY)throws Throwable {
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        bom = new Bomberman(celda);
+        Celda celda = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        bomba = new Bomba(5);
+        bom = new Bomberman(celda,bomba);
         tablero = new Tablero();
+        tablero.agregarCelda(celda);
     }
 
-    @When("^Le paso la celda vacia \"([^\"]*)\" \"([^\"]*)\"")
-    public void bombermanSeMueveHacia(String unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        bom.moverHacia(celda);
+    @When("^Bomberman se mueve hacia la \"([^\"]*)\"")
+    public void bombermanSeMueveHacia(String direccion){
+        bom.moverHacia(direccion, tablero);
     }
 
-    @When("^Le paso la celda con pared \"([^\"]*)\" \"([^\"]*)\"")
-    public void bombermanSeQuiereMoverACeldaConPared(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), pared = new Pared("Melamina"));
-        bom.moverHacia(celda);
+    @When("^Le agrego al tablero una celda vacia \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaVaciaAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        tablero.agregarCelda(celda);
     }
 
-    @When("Le paso una celda con un enemigo \"([^\"]*)\" \"([^\"]*)\"")
-    public void bombermanSeQuiereMoverACeldaConEnemigo(String  unEjeX,  String unEjeY){
-        Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        enemigo = new Enemigo(celda);
-        bom.moverHacia(celda);
+    @When("^Le agrego al tablero una celda con enemigo \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaConEnemigoAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new CeldaConEnemigo(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new EnemigoBagulaa());
+        tablero.agregarCelda(celda);
+    }
+
+    @When("^Le agrego al tablero una celda con pared melamina \"([^\"]*)\" \"([^\"]*)\"")
+    public void seAgregaCeldaConParedMelaminaAlTablero(String  unEjeX,  String unEjeY){
+        Celda celda = new CeldaConPared(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY), new Pared("Melamina"));
+        tablero.agregarCelda(celda);
     }
 
     @Then("^Esta vivo y su ubicacion actual es \"([^\"]*)\" \"([^\"]*)\"")
@@ -48,17 +55,17 @@ public class MoverStepdefs {
         assertFalse(bom.estaMuerto());
     }
 
-    @Then("^Esta muerto pero su ubicacion actual es \"([^\"]*)\" \"([^\"]*)\"")
-    public void verificacionDeUbicacionYMuerte(String unEjeX, String unEjeY){
-        verificarUbicacion(unEjeX, unEjeY);
+    @Then("^Bomberman muere")
+    public void verificacionDeMuerte(){
         assertTrue(bom.estaMuerto());
     }
 
     private void verificarUbicacion(String unEjeX, String unEjeY) {
         Celda ubicacionActual = bom.getUbicacion();
-        Celda ubicacionEsperada = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
+        Celda ubicacionEsperada = new CeldaVacia(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
 
         assertThat(ubicacionActual.getX()).isEqualTo(ubicacionEsperada.getX());
         assertThat(ubicacionActual.getY()).isEqualTo(ubicacionEsperada.getY());
     }
+
 }
