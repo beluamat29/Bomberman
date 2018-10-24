@@ -15,11 +15,13 @@ public class MoverStepdefs {
     private Tablero tablero;
     private Enemigo enemigo;
     private Pared pared;
+    private Bomba bomba;
 
     @Given("^Un Bomberman en la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void newBomberman(String unEjeX, String unEjeY)throws Throwable {
         Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        bom = new Bomberman(celda);
+        bomba = new Bomba(5);
+        bom = new Bomberman(celda,bomba);
         tablero = new Tablero();
     }
 

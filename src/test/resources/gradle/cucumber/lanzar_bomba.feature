@@ -107,3 +107,24 @@ Feature: Lanzar Bomba
     When Le agrego al tablero la celda vacia "0" "3"
     Then Se mueve hacia la direccion "arriba" salta la pared y su ubicacion actual es "0" "3"
 
+  Scenario: Bomberman lanza bomba y esta explota luego de 3 ticks
+    Given Un Bomberman ubicado en la celda "0" "0"
+    When Bomberman lanza bomba
+    And pasa un tick
+    And pasa un tick
+    And pasa un tick
+    Then La bomba exploto
+
+  Scenario: Bomberman lanza bomba y esta explota luego de 3 ticks
+    Given Un Bomberman ubicado en la celda "0" "0"
+    When Le agrego al tablero la celda con pared melamina "1" "0"
+    And Bomberman lanza bomba
+    And pasa un tick
+    And pasa un tick
+    And pasa un tick
+    When Le agrego al tablero la celda con pared melamina "0" "1"
+    And Bomberman lanza bomba
+    And pasa un tick
+    And pasa un tick
+    And pasa un tick
+    Then Se destruyo la pared de la celda "0" "1"

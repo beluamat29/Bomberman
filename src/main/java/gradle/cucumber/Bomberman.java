@@ -8,13 +8,17 @@ public class Bomberman extends Personaje {
     private boolean tienePoderDeLanzarBombasNCasilleros;
     private boolean tienePoderDeSaltarOLanzarVariasBombas;
     private boolean tienePoderDeSaltoNVeces;
+    private boolean bombaDisponible;
+    private Bomba bomba;
 
-    public Bomberman(Celda ubicacionActual) {
+    public Bomberman(Celda ubicacionActual, Bomba bomba) {
         super(ubicacionActual);
         tienePoderDeSalto = false;
         tienePoderDeLanzarBombasNCasilleros = false;
         tienePoderDeSaltarOLanzarVariasBombas = false;
         tienePoderDeSaltoNVeces = false;
+        bombaDisponible = true;
+        this.bomba = bomba;
     }
 
     public void moverHacia(Celda unaCelda) {
@@ -31,12 +35,14 @@ public class Bomberman extends Personaje {
 
     public void soltarBombaAUnRadioDeCasilleros(Integer radioDeCasilleros, Tablero tablero) {
         ArrayList<Celda> celdasTablero = tablero.getCeldas();
-
+        setBombaDisponible(true);
+        this.getBomba().setExploto(false);
         celdasTablero.forEach(celda -> {
-            if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros)) {
+            if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros) && bombaDisponible && !(getBomba().getExploto()) ) {
                 verificacionYEliminacionDeEnemigosYObstaculos(celda);
             }
         });
+
     }
 
     public void obtenerPoderDeLanzarBombasRecorriendoNCasilleros(){
@@ -88,6 +94,10 @@ public class Bomberman extends Personaje {
             celda.destruirEnemigo(this);
         }
 
+
+        //Una vez que la bomba explota se vuelve a actualizar
+        //this.getBomba().setExploto(false);
+
     }
 
     public void saltarParedesHaciaUnaDireccion(String direccion, Tablero tablero){
@@ -118,4 +128,19 @@ public class Bomberman extends Personaje {
     }
 
 
+    public Bomba getBomba() {
+        return bomba;
+    }
+
+    public void setBomba(Bomba bomba) {
+        this.bomba = bomba;
+    }
+
+    public boolean isBombaDisponible() {
+        return bombaDisponible;
+    }
+
+    public void setBombaDisponible(boolean bombaDisponible) {
+        this.bombaDisponible = bombaDisponible;
+    }
 }

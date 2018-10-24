@@ -13,11 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class LanzarBombaStepdefs {
     private Bomberman bom;
     private Tablero tablero;
+    private Bomba bomba;
 
     @Given("^Un Bomberman ubicado en la celda \"([^\"]*)\" \"([^\"]*)\"")
     public void newBomberman(String unEjeX, String unEjeY)throws Throwable {
         Celda celda = new Celda(Integer.valueOf(unEjeX), Integer.valueOf(unEjeY));
-        bom = new Bomberman(celda);
+        bomba = new Bomba(3);
+        bom = new Bomberman(celda, bomba);
         tablero = new Tablero();
     }
 
@@ -133,5 +135,22 @@ public class LanzarBombaStepdefs {
     public void bombermanLanzaBombaAUnRadioDe(String radio) throws Throwable {
         bom.soltarBombaAUnRadioDeCasilleros(Integer.valueOf(radio), tablero);
 
+    }
+
+    @Given("^Bomberman ubicado en la celda \"([^\"]*)\" \"([^\"]*)\" lanza bomba de \"([^\"]*)\" tick$")
+    public void bombermanUbicadoEnLaCeldaLanzaBombaDeTick(String x, String y, String tick) throws Throwable {
+        Celda celda = new Celda(Integer.valueOf(x), Integer.valueOf(y));
+        bomba = new Bomba(Integer.valueOf(tick));
+        bom = new Bomberman(celda,bomba);
+    }
+
+    @When("^pasa un tick$")
+    public void pasaUnTick() throws Throwable {
+        bom.getBomba().disminuirTick();
+    }
+
+    @Then("^La bomba exploto$")
+    public void laBombaExploto() throws Throwable {
+        assertTrue(bom.getBomba().getExploto());
     }
 }

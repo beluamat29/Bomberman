@@ -1,6 +1,6 @@
 package gradle.cucumber;
 
-public class Enemigo extends Personaje {
+public class    Enemigo extends Personaje {
 
     public Enemigo(Celda ubicacionActual) {
         super(ubicacionActual);
