@@ -39,7 +39,7 @@ Feature: Lanzar Bomba
     And Bomberman lanza bomba
     Then Bomberman obtiene poder, se quiere mover a "1" "0" pero salta paredes moviendose a celda "2" "0"
 
-  Scenario: Bomberman lanza bomba n casilleros hacia la derecha, elimina a Bagulaa obtiene poder y elimina una pared de melamina
+  Scenario: Bomberman lanza bomba, elimina a Bagulaa y lanza bomba hacia la derecha
     Given Un Bomberman ubicado en la celda "0" "0"
     When Le agrego al tablero la celda con enemigo Bagulaa "0" "1"
     And Le agrego al tablero la celda con pared melamina "4" "0"
@@ -47,7 +47,7 @@ Feature: Lanzar Bomba
     And Bomberman obtiene poder y lanza bomba hacia la direccion "derecha" por "4" casilleros
     Then Se destruyo la pared de la celda "4" "0"
 
-  Scenario: Bomberman lanza bomba n casilleros hacia la izquierda, elimina a Bagulaa obtiene poder y elimina una pared de melamina
+  Scenario: Bomberman lanza bomba, elimina a Bagulaa y lanza bomba hacia la izquierda
     Given Un Bomberman ubicado en la celda "3" "0"
     When Le agrego al tablero la celda con enemigo Bagulaa "3" "1"
     And Le agrego al tablero la celda con pared melamina "0" "0"
@@ -55,7 +55,7 @@ Feature: Lanzar Bomba
     And Bomberman obtiene poder y lanza bomba hacia la direccion "izquierda" por "3" casilleros
     Then Se destruyo la pared de la celda "0" "0"
 
-  Scenario: Bomberman lanza bomba n casilleros hacia arriba, elimina a Bagulaa obtiene poder y elimina una pared de melamina
+  Scenario: Bomberman lanza bomba, elimina a Bagulaa y lanza bomba hacia la arriba
     Given Un Bomberman ubicado en la celda "0" "0"
     When Le agrego al tablero la celda con enemigo Bagulaa "2" "0"
     And Le agrego al tablero la celda con pared melamina "0" "3"
@@ -63,7 +63,7 @@ Feature: Lanzar Bomba
     And Bomberman obtiene poder y lanza bomba hacia la direccion "arriba" por "3" casilleros
     Then Se destruyo la pared de la celda "0" "3"
 
-  Scenario: Bomberman lanza bomba n casilleros hacia abajo, elimina a Bagulaa obtiene poder y elimina una pared de melamina
+  Scenario: Bomberman lanza bomba, elimina a Bagulaa y lanza bomba hacia la abajo
     Given Un Bomberman ubicado en la celda "0" "4"
     When Le agrego al tablero la celda con enemigo Bagulaa "1" "4"
     And Le agrego al tablero la celda con pared melamina "0" "0"
