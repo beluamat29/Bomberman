@@ -64,7 +64,7 @@ public class Celda {
     }
 
     public boolean tieneParedDeMelamina() {
-        return pared.esDeMelamina();
+        return conPared && pared.esDeMelamina();
     }
 
     public void setEnemigo(Enemigo unEnemigo) {

@@ -22,21 +22,17 @@ public class Bomberman extends Personaje {
 
         if (direccion.equals("derecha")) {
             nuevaUbicacion = tablero.celdaHaciaLaDerecha(ubicacionActual);
-        }
-        else if (direccion.equals("izquierda")) {
+        } else if (direccion.equals("izquierda")) {
             nuevaUbicacion = tablero.celdaHaciaLaIzquierda(ubicacionActual);
-        }
-        else if (direccion.equals("arriba")) {
+        } else if (direccion.equals("arriba")) {
             nuevaUbicacion = tablero.celdaHaciaArriba(ubicacionActual);
-        }
-        else if (direccion.equals("abajo")) {
+        } else if (direccion.equals("abajo")) {
             nuevaUbicacion = tablero.celdaHaciaAbajo(ubicacionActual);
         }
 
         if (!nuevaUbicacion.tienePared()) {
             ubicacionActual = nuevaUbicacion;
-        }
-        else if (tienePoderDeSalto) {
+        } else if (tienePoderDeSalto) {
             ubicacionActual = nuevaUbicacion;
             moverHacia(direccion, tablero);
         }
@@ -49,18 +45,18 @@ public class Bomberman extends Personaje {
         ArrayList<Celda> celdasTablero = tablero.getCeldas();
         setBombaDisponible(true);
         celdasTablero.forEach(celda -> {
-            if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros) && bombaDisponible ) {
+            if (celda.estaEnElRadio(ubicacionActual.getX(), ubicacionActual.getY(), radioDeCasilleros) && bombaDisponible) {
                 verificacionYEliminacionDeEnemigosYObstaculos(celda);
             }
         });
 
     }
 
-    public void obtenerPoderDeLanzarBombasRecorriendoNCasilleros(){
+    public void obtenerPoderDeLanzarBombasRecorriendoNCasilleros() {
         tienePoderDeLanzarBombasNCasilleros = true;
     }
 
-    public void obtenerPoderDeSaltarOLanzarVariasBombas(){
+    public void obtenerPoderDeSaltarOLanzarVariasBombas() {
         tienePoderDeSalto = true;
         tienePoderDeLanzarBombasNCasilleros = true;
     }
@@ -70,34 +66,35 @@ public class Bomberman extends Personaje {
     }
 
     public void lanzarBombaRecorriendoNCasilleros(Integer nCasilleros, Tablero tablero, String direccion) {
-        ArrayList<Celda> celdasTablero = tablero.getCeldas();
-        if(tienePoderDeLanzarBombasNCasilleros){
-            celdasTablero.forEach(celda -> {
-                if (direccion.equalsIgnoreCase("derecha") &&
-                        celda.estaHaciaLaDerecha(ubicacionActual.getX(), nCasilleros)) {
-                    verificacionYEliminacionDeEnemigosYObstaculos(celda);
-                }
-                if (direccion.equalsIgnoreCase("izquierda") &&
-                        celda.estaHaciaLaIzquierda(ubicacionActual.getX(), nCasilleros)) {
-                    verificacionYEliminacionDeEnemigosYObstaculos(celda);
-                }
-                if (direccion.equalsIgnoreCase("arriba") &&
-                        celda.estaHaciaArriba(ubicacionActual.getY(), nCasilleros)) {
-                    verificacionYEliminacionDeEnemigosYObstaculos(celda);
-                }
-                if (direccion.equalsIgnoreCase("abajo") &&
-                        celda.estaHaciaAbajo(ubicacionActual.getY(), nCasilleros)) {
-                    verificacionYEliminacionDeEnemigosYObstaculos(celda);
-                }
-            });
+        Celda celda;
 
+        if (tienePoderDeLanzarBombasNCasilleros) {
+
+            if (direccion.equals("derecha")) {
+                celda = tablero.getCeldaEnEjes(ubicacionActual.getX() + nCasilleros, ubicacionActual.getY());
+                verificacionYEliminacionDeEnemigosYObstaculos(celda);
+            }
+            if (direccion.equalsIgnoreCase("izquierda")) {
+                celda = tablero.getCeldaEnEjes(ubicacionActual.getX() - nCasilleros, ubicacionActual.getY());
+                verificacionYEliminacionDeEnemigosYObstaculos(celda);
+            }
+            if (direccion.equalsIgnoreCase("arriba")) {
+                celda = tablero.getCeldaEnEjes(ubicacionActual.getX(), ubicacionActual.getY() + nCasilleros);
+                verificacionYEliminacionDeEnemigosYObstaculos(celda);
+            }
+            if (direccion.equalsIgnoreCase("abajo")) {
+                celda = tablero.getCeldaEnEjes(ubicacionActual.getX(), ubicacionActual.getY() - nCasilleros);
+                verificacionYEliminacionDeEnemigosYObstaculos(celda);
+            }
         }
 
     }
 
-    public void verificacionYEliminacionDeEnemigosYObstaculos(Celda celda){
 
-        if (celda.tienePared() && celda.tieneParedDeMelamina()) {
+
+    public void verificacionYEliminacionDeEnemigosYObstaculos(Celda celda) {
+
+        if (celda.tieneParedDeMelamina()) {
             celda.destruirPared();
         }
 
